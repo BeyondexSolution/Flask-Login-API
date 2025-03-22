@@ -25,22 +25,22 @@ def login():
         user = GigiCmsLogin.query.filter_by(GL_USERNAME=username,GL_PASSWORD=password).first()
 
         if user:  # Secure password check
-            token = jwt.encode(
-                {
-                    "user_id": user.GL_RECID,
-                    "role": user.GL_ROLE,
-                    "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=1)  # Adjust expiration as needed
-                },
-                SECRET_KEY,
-                algorithm="HS256"
-            )
+            # token = jwt.encode(
+            #     {
+            #         "user_id": user.GL_RECID,
+            #         "role": user.GL_ROLE,
+            #         "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=1)  # Adjust expiration as needed
+            #     },
+            #     SECRET_KEY,
+            #     algorithm="HS256"
+            # )
             data={
                 "RecordID":user.GL_RECID,
                 "UserName":user.GL_USERNAME,
                 "Role":user.GL_ROLE,
                 #"SECRET_KEY":SECRET_KEY
             }
-            return jsonify({"status": "Y","token": token, "data": data,"msg":"Login Successfully"}), 200
+            return jsonify({"status": "Y", "data": data,"msg":"Login Successfully"}), 200
 
         return jsonify({"status": "N","msg": "Invalid credentials"}), 401
     except Exception as e:

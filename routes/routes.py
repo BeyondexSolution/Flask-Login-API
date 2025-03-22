@@ -12,7 +12,7 @@ def get_users():
     return userController.login()
 
 @routes_bp.route('/users', methods=['GET'])
-@token_required 
+#@token_required 
 def get_userdata():
     user_data = userController.get_all_users()
     return jsonify(user_data)
